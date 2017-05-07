@@ -16,3 +16,20 @@
 /store:
     method: post
     to: book:store
+
+/edit/{id}:
+  method: get
+  to: book:edit
+
+/details/{id}:
+  method: get
+  to: book:details
+
+/update/{id}:
+  method: post
+  to: book:update
+
+/delete/{id}:
+  method: post
+  to: book:delete
+

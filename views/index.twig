@@ -1,7 +1,7 @@
 {% extends 'layout.twig' %}
 
 
-{% block title %}Create new book{% endblock %}
+{% block title %}Book list{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -26,9 +26,12 @@
                         <td>{{ book.get('author') }}</td>
                         <td>{{ book.get('company') }}</td>
                         <td>{{ book.get('edition') }}</td>
-                        <td>
-                            <a href="/update/{{ book.getKey() }}" class="btn btn-info">Update</a>
-                            <a href="/update/{{ book.getKey() }}" class="btn btn-danger">Delete</a>
+                        <td style="width: 25%">
+                            <form action="/delete/{{ book.getKey() }}" method="post">
+                                <a href="/edit/{{ book.getKey() }}" class="btn btn-info">Update</a>
+                                <a href="/details/{{ book.getKey() }}" class="btn btn-warning">Details</a>
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     {% endfor %}

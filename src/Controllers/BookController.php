@@ -6,7 +6,6 @@ use App\Collections\Book;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class BookController extends Controller
 {
@@ -47,5 +46,62 @@ class BookController extends Controller
                 'message' => $exception->getMessage()
             ]);
         }
+    }
+
+    public function edit($id)
+    {
+        if ($this->bookCollection->find($id)) {
+            return $this->app['twig']->render('update.twig', [
+                'book' => $this->bookCollection->find($id)
+            ]);
+        }
+
+        return $this->app['twig']->render('error.twig', [
+            'message' => 'Document not found'
+        ]);
+    }
+
+    public function update($id, Request $request)
+    {
+        $data = (array) $request->request;
+        $data = array_pop($data);
+
+        try {
+            if ($this->bookCollection->validate($data)) {
+                $result = $this->bookCollection->update($id, $data);
+                return RedirectResponse::create('/index');
+            }
+
+            return RedirectResponse::create('/create');
+        } catch (\Exception $exception) {
+            return $this->app['twig']->render('error.twig', [
+                'message' => $exception->getMessage()
+            ]);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $this->bookCollection->delete($id);
+            return RedirectResponse::create('/index');
+        } catch (\Exception $exception) {
+            return $this->app['twig']->render('error.twig', [
+                'message' => $exception->getMessage()
+            ]);
+        }
+    }
+
+    public function details($id)
+    {
+        if ($this->bookCollection->find($id)) {
+            return $this->app['twig']->render('details.twig', [
+                'book' => $this->bookCollection->find($id)
+            ]);
+        }
+
+        return $this->app['twig']->render('error.twig', [
+            'message' => 'Document not found'
+        ]);
     }
 }

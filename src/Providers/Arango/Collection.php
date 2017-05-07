@@ -42,6 +42,15 @@ abstract class Collection
         return $this->collectionHandler->all($collection->getId());
     }
 
+    public function find($id)
+    {
+        if ($this->documentHandler->has($this->collection, $id)) {
+            return $this->documentHandler->get($this->collection, $id);
+        };
+
+        return null;
+    }
+
     public function save(array $data)
     {
         $document = new Document();
@@ -51,5 +60,31 @@ abstract class Collection
         }
 
         return $this->documentHandler->save($this->collection, $document);
+    }
+
+    public function update($id, array $data)
+    {
+        $document = $this->find($id);
+
+        if ($document) {
+            foreach ($data as $key => $value) {
+                $document->set($key, $value);
+            }
+
+            return $this->documentHandler->update($document);
+        }
+
+        return null;
+    }
+
+    public function delete($id)
+    {
+        $document = $this->find($id);
+
+        if ($document) {
+            return $this->documentHandler->remove($document);
+        }
+
+        return null;
     }
 }
