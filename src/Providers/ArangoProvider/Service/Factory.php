@@ -16,57 +16,57 @@ use triagens\ArangoDb\Statement as ArangoStatement;
  */
 class Factory
 {
-	private $connection;
+    private $connection;
 
-	function __construct(ArangoConnection $connection)
-	{
-		$this->connection = $connection;
-	}
+    public function __construct(ArangoConnection $connection)
+    {
+        $this->connection = $connection;
+    }
 
-	function newCollection($name)
-	{
-		return new ArangoCollection($name);
-	}
+    public function newCollection($name)
+    {
+        return new ArangoCollection($name);
+    }
 
-	function newDocument()
-	{
-		return new ArangoDocument();
-	}
+    public function newDocument()
+    {
+        return new ArangoDocument();
+    }
 
-	function handleDocument()
-	{
-		return new ArangoDocumentHandler($this->connection);
-	}
+    public function handleDocument()
+    {
+        return new ArangoDocumentHandler($this->connection);
+    }
 
-	function handleCollection(ArangoCollection $value = null)
-	{
-		return new ArangoCollectionHandler($this->connection);
-	}
+    public function handleCollection(ArangoCollection $value = null)
+    {
+        return new ArangoCollectionHandler($this->connection);
+    }
 
-	function newReadStatement($query, $batchSize = 1000, $canCount = true)
-	{
-		return new ArangoStatement(
-			$this->connection,
-			array(
-				"query" => $query,
-				"batchSize" => $batchSize,
-				"count" => $canCount,
-				"sanitize" => true,
-			)
-		);
-	}
+    public function newReadStatement($query, $batchSize = 1000, $canCount = true)
+    {
+        return new ArangoStatement(
+            $this->connection,
+            array(
+                "query" => $query,
+                "batchSize" => $batchSize,
+                "count" => $canCount,
+                "sanitize" => true,
+            )
+        );
+    }
 
-	function newChangeStatement($query, $bindVars)
-	{
-		return new ArangoStatement(
-			$this->connection,
-			array(
-				"query" => $query,
-				"bindVars" => $bindVars,
-				"batchSize" => 1,
-				"count" => true,
-				"sanitize" => true,
-			)
-		);
-	}
+    public function newChangeStatement($query, $bindVars)
+    {
+        return new ArangoStatement(
+            $this->connection,
+            array(
+                "query" => $query,
+                "bindVars" => $bindVars,
+                "batchSize" => 1,
+                "count" => true,
+                "sanitize" => true,
+            )
+        );
+    }
 }

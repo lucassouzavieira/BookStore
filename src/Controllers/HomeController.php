@@ -8,6 +8,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return 'Welcome to Silex !';
+        return $this->app['twig']->render('welcome.twig', [
+            'welcome' => 'Welcome to Arango Book Store!'
+        ]);
     }
 }

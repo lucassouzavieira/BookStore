@@ -18,11 +18,11 @@ class Provider implements ServiceProviderInterface
 {
     public function register(Container $app)
     {
-        if ( !isset($app['config']['arangodb']) ) {
+        if (!isset($app['config']['arangodb'])) {
             throw new \Exception("Connection settings for arango database is missing", 1);
         }
 
-        $host = sprintf('tcp://%s:%d', $app['config']['arangodb']['host'], $app['config']['arangodb']['port'] );
+        $host = sprintf('tcp://%s:%d', $app['config']['arangodb']['host'], $app['config']['arangodb']['port']);
 
         $connectionOptions = array(
             ArangoConnectionOptions::OPTION_DATABASE    => $app['config']['arangodb']['database'],
@@ -39,7 +39,7 @@ class Provider implements ServiceProviderInterface
 
         ArangoException::enableLogging();
 
-        $app['arango'] = function () use ($connectionOptions){
+        $app['arango'] = function () use ($connectionOptions) {
             return new Factory(new ArangoConnection($connectionOptions));
         };
 

@@ -33,4 +33,8 @@ $app->register(new ControllerServiceProvider());
 $app->register(new RouterServiceProvider($routes));
 $app->register(new ArangoProvider());
 
+$app->register(new Silex\Provider\TwigServiceProvider(), [
+    'twig.path' => 'views'
+]);
+
 return $app;
