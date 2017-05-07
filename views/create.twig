@@ -1,0 +1,59 @@
+{% extends 'layout.twig' %}
+
+
+{% block title %}Create new book{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form class="" action="store" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="title" class="form-inline">Book title</label>
+                        <input type="text" id="title" name="title" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="author" class="form-inline">Author</label>
+                        <input type="text" id="author" name="author" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="company" class="form-inline">Publishing company</label>
+                        <input type="text" id="company" name="company" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="edition" class="form-inline">Edition</label>
+                        <input type="number" id="edition" name="edition" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="category" class="form-inline">Category</label>
+                        <input type="text" id="category" name="category" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="description" class="form-inline">Description</label>
+                        <input type="text" id="description" name="description" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

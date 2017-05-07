@@ -8,3 +8,11 @@
 /index:
     method: get
     to: book:index
+
+/create:
+    method: get
+    to: book:create
+
+/store:
+    method: post
+    to: book:store

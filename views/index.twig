@@ -1,0 +1,40 @@
+{% extends 'layout.twig' %}
+
+
+{% block title %}Create new book{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Book</th>
+                        <th>Author</th>
+                        <th>Publishing company</th>
+                        <th>Edition</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for book in books %}
+                    <tr>
+                        <th scope="row">{{ book.getKey() }}</th>
+                        <td>{{ book.get('title') }}</td>
+                        <td>{{ book.get('author') }}</td>
+                        <td>{{ book.get('company') }}</td>
+                        <td>{{ book.get('edition') }}</td>
+                        <td>
+                            <a href="/update/{{ book.getKey() }}" class="btn btn-info">Update</a>
+                            <a href="/update/{{ book.getKey() }}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
