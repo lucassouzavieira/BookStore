@@ -4,3 +4,7 @@
   method: get
   to: home:index
 
+
+/index:
+    method: get
+    to: book:index

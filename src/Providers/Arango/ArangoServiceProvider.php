@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers\ArangoProvider\Service;
+namespace App\Providers\Arango;
 
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
@@ -11,10 +11,10 @@ use triagens\ArangoDb\Exception as ArangoException;
 use triagens\ArangoDb\UpdatePolicy as ArangoUpdatePolicy;
 
 /**
+ * Provides an Arango connection to Application
  * @package App\Providers\ArangoProvider\Service
- * @author Evaldo Barbosa
  */
-class Provider implements ServiceProviderInterface
+class ArangoServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $app)
     {
@@ -40,7 +40,7 @@ class Provider implements ServiceProviderInterface
         ArangoException::enableLogging();
 
         $app['arango'] = function () use ($connectionOptions) {
-            return new Factory(new ArangoConnection($connectionOptions));
+            return new ArangoConnection($connectionOptions);
         };
 
         unset($host);

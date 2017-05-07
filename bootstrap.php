@@ -7,7 +7,7 @@ require_once 'vendor/triagens/arangodb/autoload.php';
 use Silex\Application;
 use App\Providers\RouterServiceProvider;
 use App\Providers\ControllerServiceProvider;
-use App\Providers\ArangoProvider\Service\Provider as ArangoProvider;
+use App\Providers\Arango\ArangoServiceProvider;
 use Silex\Provider\ServiceControllerServiceProvider;
 use Symfony\Component\Yaml\Yaml;
 
@@ -31,7 +31,7 @@ $app['debug'] = $app['config']['application']['debug'];
 $app->register(new ServiceControllerServiceProvider());
 $app->register(new ControllerServiceProvider());
 $app->register(new RouterServiceProvider($routes));
-$app->register(new ArangoProvider());
+$app->register(new ArangoServiceProvider());
 
 $app->register(new Silex\Provider\TwigServiceProvider(), [
     'twig.path' => 'views'
