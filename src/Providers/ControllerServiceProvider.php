@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Controllers\HomeController;
 use App\Controllers\BookController;
+use App\Controllers\HomeController;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 

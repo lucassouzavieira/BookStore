@@ -2,11 +2,9 @@
 
 namespace App\Collections;
 
-use App\Collections\Validation\Validation;
-use App\Providers\Arango\Collection;
 use Respect\Validation\Validator;
 
-class Book extends Collection implements Validation
+class Book extends ArangoCollectionRepository
 {
     public $collection = 'books';
 

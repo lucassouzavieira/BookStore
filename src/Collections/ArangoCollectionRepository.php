@@ -1,26 +1,41 @@
 <?php
 
-namespace App\Providers\Arango;
+namespace App\Collections;
 
 use Silex\Application;
+use App\Collections\Validation\Validation;
 
 use triagens\ArangoDb\CollectionHandler;
 use triagens\ArangoDb\Document;
 use triagens\ArangoDb\DocumentHandler;
-use triagens\ArangoDb\ServerException;
-use triagens\ArangoDb\Collection as ArangoCollection;
+use triagens\ArangoDb\Collection;
 
 /**
- * Class Collection
- * @package App\Providers\Arango
+ * Class ArangoCollectionRepository
+ * @package App\Collections
  */
-abstract class Collection
+abstract class ArangoCollectionRepository implements Validation
 {
+    /**
+     * @var $collection Collection name
+     */
     public $collection;
 
+    /**
+     * @var $connection ArangoDb connection
+     */
     protected $connection;
+
+    /**
+     * @var $collectionHandler CollectionHandler for repository
+     */
     protected $collectionHandler;
+
+    /**
+     * @var $documentHandler DocumentHandler for repository
+     */
     protected $documentHandler;
+
 
     public function __construct(Application $app)
     {
@@ -31,17 +46,25 @@ abstract class Collection
 
         // Create collection if not exists
         if (!$this->collectionHandler->has($this->collection)) {
-            $collection = new ArangoCollection($this->collection);
-            $this->collectionHandler->create($collection);
+            $this->collectionHandler->create(new Collection($this->collection));
         }
     }
 
+    /**
+     * Returns all documents from Collection
+     * @return \triagens\ArangoDb\Cursor
+     */
     public function all()
     {
         $collection = $this->collectionHandler->get($this->collection);
         return $this->collectionHandler->all($collection->getId());
     }
 
+    /**
+     * Returns a given document from Collection
+     * @param $id
+     * @return null|Document
+     */
     public function find($id)
     {
         if ($this->documentHandler->has($this->collection, $id)) {
@@ -51,6 +74,11 @@ abstract class Collection
         return null;
     }
 
+    /**
+     * Create and save a new document
+     * @param array $data
+     * @return mixed
+     */
     public function save(array $data)
     {
         $document = new Document();
@@ -62,6 +90,12 @@ abstract class Collection
         return $this->documentHandler->save($this->collection, $document);
     }
 
+    /**
+     * Updates a given document from Collection
+     * @param $id
+     * @param array $data
+     * @return bool|null
+     */
     public function update($id, array $data)
     {
         $document = $this->find($id);
@@ -77,6 +111,11 @@ abstract class Collection
         return null;
     }
 
+    /**
+     * Delete a given document from collection
+     * @param $id
+     * @return bool|null
+     */
     public function delete($id)
     {
         $document = $this->find($id);
