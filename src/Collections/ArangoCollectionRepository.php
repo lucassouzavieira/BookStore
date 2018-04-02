@@ -5,10 +5,10 @@ namespace App\Collections;
 use Silex\Application;
 use App\Collections\Validation\Validation;
 
-use triagens\ArangoDb\CollectionHandler;
-use triagens\ArangoDb\Document;
-use triagens\ArangoDb\DocumentHandler;
-use triagens\ArangoDb\Collection;
+use ArangoDBClient\CollectionHandler;
+use ArangoDBClient\Document;
+use ArangoDBClient\DocumentHandler;
+use ArangoDBClient\Collection;
 
 /**
  * Class ArangoCollectionRepository
@@ -52,7 +52,7 @@ abstract class ArangoCollectionRepository implements Validation
 
     /**
      * Returns all documents from Collection
-     * @return \triagens\ArangoDb\Cursor
+     * @return \ArangoDBClient\Cursor
      */
     public function all()
     {

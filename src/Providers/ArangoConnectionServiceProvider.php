@@ -5,10 +5,10 @@ namespace App\Providers;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
-use triagens\ArangoDb\Connection as ArangoConnection;
-use triagens\ArangoDb\ConnectionOptions as ArangoConnectionOptions;
-use triagens\ArangoDb\Exception as ArangoException;
-use triagens\ArangoDb\UpdatePolicy as ArangoUpdatePolicy;
+use ArangoDBClient\Connection as ArangoConnection;
+use ArangoDBClient\ConnectionOptions as ArangoConnectionOptions;
+use ArangoDBClient\Exception as ArangoException;
+use ArangoDBClient\UpdatePolicy as ArangoUpdatePolicy;
 
 /**
  * Provides an Arango connection to Application

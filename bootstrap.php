@@ -14,7 +14,6 @@ use Symfony\Component\Yaml\Yaml;
 
 $app = new Application();
 
-$routes = Yaml::parse(file_get_contents('routes/routes.yml'));
 $config = Yaml::parse(file_get_contents('app.yml'));
 
 $app['config'] = $config;
@@ -30,10 +29,14 @@ $app['debug'] = $app['config']['application']['debug'];
  */
 $app->register(new ServiceControllerServiceProvider());
 $app->register(new ControllerServiceProvider());
-$app->register(new RouterServiceProvider($routes));
 $app->register(new ArangoConnectionServiceProvider());
 $app->register(new TwigServiceProvider(), [
     'twig.path' => 'views'
 ]);
+
+/**
+ * Routes
+ */
+require 'routes.php';
 
 return $app;
